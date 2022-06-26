@@ -3,6 +3,7 @@ package ru.gb.popularlibrary
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
 
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        showProgress(false)
         binding.reloadButton.setOnClickListener {
             initRecyclerView()
         }
@@ -24,14 +25,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+        showProgress(true)
         binding.userReloadRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.userReloadRecyclerview.adapter = adapter
         usersRepository.getUsers (
-            onSuccess = adapter::setData,
+            onSuccess = {
+                showProgress(false)
+                adapter.setData(it)
+            },
             onError = {
+                showProgress(true)
                 Toast.makeText(this, "Error load data", Toast.LENGTH_SHORT).show()
             }
         )
+    }
+
+    private fun showProgress(inProgress:Boolean){
+        binding.progressBar.isVisible = inProgress
+        binding.userReloadRecyclerview.isVisible = !inProgress
 
     }
 }

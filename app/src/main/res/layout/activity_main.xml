@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
     android:orientation="vertical"
+    android:padding="15dp"
     tools:context=".MainActivity">
 
     <Button
@@ -15,9 +15,25 @@
         android:text="reload"
         app:icon="@android:drawable/ic_popup_sync" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/user_reload_recyclerview"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:ignore="InvalidId"
+            tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/user_reload_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
 
 </LinearLayout>
