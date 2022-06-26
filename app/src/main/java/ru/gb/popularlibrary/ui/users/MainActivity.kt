@@ -6,14 +6,14 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.gb.app
-import ru.gb.popularlibrary.domain.UserEntity
-import ru.gb.popularlibrary.domain.UsersRepository
+import ru.gb.popularlibrary.domain.entities.UserEntity
+import ru.gb.popularlibrary.domain.repositories.UsersRepository
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val adapter = UsersAdapter()
-    private val usersRepository: UsersRepository by lazy {app.usersRepository }
+    private val usersRepository: UsersRepository by lazy { app.usersRepository }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
                 showProgress(false)
                 onDataLoader(it)
             },
-            onError = {onError(it)
+            onError = {
+                onError(it)
                 showProgress(true)
             }
         )
@@ -53,12 +54,12 @@ class MainActivity : AppCompatActivity() {
         adapter.setData(it)
     }
 
-    private fun onError(throwable: Throwable){
+    private fun onError(throwable: Throwable) {
 
         Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun showProgress(inProgress:Boolean){
+    private fun showProgress(inProgress: Boolean) {
         binding.progressBar.isVisible = inProgress
         binding.userReloadRecyclerview.isVisible = !inProgress
 

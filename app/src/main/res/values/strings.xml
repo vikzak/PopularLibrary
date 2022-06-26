@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PopularLibrary</string>
+    <string name="reload_button_activity_main">reload</string>
 </resources>

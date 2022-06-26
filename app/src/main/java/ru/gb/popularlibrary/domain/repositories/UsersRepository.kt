@@ -1,6 +1,6 @@
-package ru.gb.popularlibrary.domain
+package ru.gb.popularlibrary.domain.repositories
 
-import ru.gb.popularlibrary.domain.UserEntity
+import ru.gb.popularlibrary.domain.entities.UserEntity
 
 interface UsersRepository {
     // CRUD = Create/Read/Update/Delete

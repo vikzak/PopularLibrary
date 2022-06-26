@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="15dp"
+    android:padding="@dimen/padding_activity_main"
     tools:context=".ui.users.MainActivity">
 
     <Button
         android:id="@+id/reload_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="reload"
+        android:text="@string/reload_button_activity_main"
         app:icon="@android:drawable/ic_popup_sync" />
 
     <FrameLayout

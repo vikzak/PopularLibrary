@@ -3,7 +3,7 @@ package ru.gb.popularlibrary.ui.users
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.gb.popularlibrary.domain.UserEntity
+import ru.gb.popularlibrary.domain.entities.UserEntity
 
 class UsersAdapter : RecyclerView.Adapter<UserViewHolder>() {
     private val data = mutableListOf<UserEntity>()
@@ -13,7 +13,7 @@ class UsersAdapter : RecyclerView.Adapter<UserViewHolder>() {
     }
 
     override fun getItemId(position: Int): Long {
-        return getItem(position).id
+        return getItem(position).id.toLong()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
