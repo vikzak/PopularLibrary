@@ -1,4 +1,4 @@
-package ru.gb.popularlibrary
+package ru.gb.popularlibrary.domain
 
 data class UserEntity (
     val login:String,

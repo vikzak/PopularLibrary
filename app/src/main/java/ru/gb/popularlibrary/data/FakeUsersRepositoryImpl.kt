@@ -1,7 +1,9 @@
-package ru.gb.popularlibrary
+package ru.gb.popularlibrary.data
 
 import android.os.Looper
 import android.os.Handler
+import ru.gb.popularlibrary.domain.UserEntity
+import ru.gb.popularlibrary.domain.UsersRepository
 
 
 private const val DATA_LOADINGFAKE_DELAY = 1000L

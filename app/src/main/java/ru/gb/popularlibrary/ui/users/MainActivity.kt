@@ -1,43 +1,61 @@
-package ru.gb.popularlibrary
+package ru.gb.popularlibrary.ui.users
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.gb.app
+import ru.gb.popularlibrary.domain.UserEntity
+import ru.gb.popularlibrary.domain.UsersRepository
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val adapter = UsersAdapter()
-    private val usersRepository:UsersRepository = FakeUsersRepositoryImpl()
+    private val usersRepository: UsersRepository by lazy {app.usersRepository }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showProgress(false)
+        initViews()
+    }
+
+    private fun initViews() {
         binding.reloadButton.setOnClickListener {
             initRecyclerView()
         }
-
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
-        showProgress(true)
         binding.userReloadRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.userReloadRecyclerview.adapter = adapter
-        usersRepository.getUsers (
+        loadData()
+    }
+
+    private fun loadData() {
+        showProgress(true)
+        usersRepository.getUsers(
             onSuccess = {
                 showProgress(false)
-                adapter.setData(it)
+                onDataLoader(it)
             },
-            onError = {
+            onError = {onError(it)
                 showProgress(true)
-                Toast.makeText(this, "Error load data", Toast.LENGTH_SHORT).show()
             }
         )
+    }
+
+    private fun onDataLoader(it: List<UserEntity>) {
+        adapter.setData(it)
+    }
+
+    private fun onError(throwable: Throwable){
+
+        Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun showProgress(inProgress:Boolean){
