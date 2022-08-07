@@ -11,11 +11,12 @@ import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.domain.repositories.UsersRepository
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(),UsersContract.View {
+class MainActivity : AppCompatActivity(), UsersContract.View {
     private lateinit var binding: ActivityMainBinding
     private val adapter = UsersAdapter()
+
     //private val usersRepository: UsersRepository by lazy { app.usersRepository }
-    private lateinit var usersPresenter:UsersContract.Presenter
+    private lateinit var usersPresenter: UsersContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +24,13 @@ class MainActivity : AppCompatActivity(),UsersContract.View {
         setContentView(binding.root)
         showProgress(false)
         initViews()
-        usersPresenter = UsersPresenter(app.usersRepository)
+        usersPresenter = extractPresenter()
         usersPresenter.attach(this)
+    }
+
+    private fun extractPresenter():UsersContract.Presenter {
+        return lastCustomNonConfigurationInstance as? UsersContract.Presenter
+            ?: UsersPresenter(app.usersRepository)
     }
 
     private fun initViews() {
@@ -54,6 +60,10 @@ class MainActivity : AppCompatActivity(),UsersContract.View {
         binding.progressBar.isVisible = inProgress
         binding.userReloadRecyclerview.isVisible = !inProgress
 
+    }
+
+    override fun onRetainCustomNonConfigurationInstance(): UsersContract.Presenter {
+        return usersPresenter
     }
 
     override fun onDestroy() {
