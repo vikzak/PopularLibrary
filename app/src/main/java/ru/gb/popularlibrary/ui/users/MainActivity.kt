@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), UsersContract.View {
         initViews()
         usersPresenter = extractPresenter()
         usersPresenter.attach(this)
+
     }
 
     private fun extractPresenter():UsersContract.Presenter {
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity(), UsersContract.View {
         }
         initRecyclerView()
         showProgress(false)
+        clickToUserDetail()
     }
 
     private fun initRecyclerView() {
@@ -47,12 +49,17 @@ class MainActivity : AppCompatActivity(), UsersContract.View {
         //loadData()
     }
 
+    private fun clickToUserDetail(){
+        binding.userReloadRecyclerview.setOnClickListener {
+            Toast.makeText(this,"123", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun showUsers(users: List<UserEntity>) {
         adapter.setData(users)
     }
 
     override fun showError(throwable: Throwable) {
-
         Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
@@ -62,6 +69,7 @@ class MainActivity : AppCompatActivity(), UsersContract.View {
 
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRetainCustomNonConfigurationInstance(): UsersContract.Presenter {
         return usersPresenter
     }
