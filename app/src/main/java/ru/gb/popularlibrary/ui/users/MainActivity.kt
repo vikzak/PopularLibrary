@@ -2,45 +2,49 @@ package ru.gb.popularlibrary.ui.users
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.gb.app
 import ru.gb.popularlibrary.domain.entities.UserEntity
-import ru.gb.popularlibrary.domain.repositories.UsersRepository
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), UsersContract.View {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val adapter = UsersAdapter()
 
     //private val usersRepository: UsersRepository by lazy { app.usersRepository }
-    private lateinit var usersPresenter: UsersContract.Presenter
+    private lateinit var viewModel: UsersContract.ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        showProgress(false)
-        initViews()
-        usersPresenter = extractPresenter()
-        usersPresenter.attach(this)
 
+        initViews()
+
+        initViewModel()
     }
 
-    private fun extractPresenter():UsersContract.Presenter {
-        return lastCustomNonConfigurationInstance as? UsersContract.Presenter
-            ?: UsersPresenter(app.usersRepository)
+    private fun initViewModel() {
+        viewModel = extractViewModel()
+        viewModel.progressLiveData.observe(this){showProgress(it)}
+        viewModel.errorLiveData.observe(this){showError(it)}
+        viewModel.usersLiveData.observe(this){showUsers(it)}
+    }
+
+    private fun extractViewModel():UsersContract.ViewModel {
+        return lastCustomNonConfigurationInstance as? UsersContract.ViewModel
+            ?: UsersViewModel(app.usersRepository)
     }
 
     private fun initViews() {
         binding.reloadButton.setOnClickListener {
-            usersPresenter.onRefresh()
+            viewModel.onRefresh()
         }
         initRecyclerView()
         showProgress(false)
-        clickToUserDetail()
+        //clickToUserDetail()
     }
 
     private fun initRecyclerView() {
@@ -55,27 +59,26 @@ class MainActivity : AppCompatActivity(), UsersContract.View {
         }
     }
 
-    override fun showUsers(users: List<UserEntity>) {
+    private fun showUsers(users: List<UserEntity>) {
         adapter.setData(users)
     }
 
-    override fun showError(throwable: Throwable) {
+    private fun showError(throwable: Throwable) {
         Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showProgress(inProgress: Boolean) {
+    private fun showProgress(inProgress: Boolean) {
         binding.progressBar.isVisible = inProgress
         binding.userReloadRecyclerview.isVisible = !inProgress
 
     }
 
     @Deprecated("Deprecated in Java")
-    override fun onRetainCustomNonConfigurationInstance(): UsersContract.Presenter {
-        return usersPresenter
+    override fun onRetainCustomNonConfigurationInstance(): UsersContract.ViewModel {
+        return viewModel
     }
 
     override fun onDestroy() {
-        usersPresenter.deAttach()
         super.onDestroy()
     }
 }

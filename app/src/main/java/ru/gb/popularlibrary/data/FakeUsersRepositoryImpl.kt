@@ -21,6 +21,7 @@ class FakeUsersRepositoryImpl : UsersRepository {
     override fun getUsers(onSuccess: (List<UserEntity>) -> Unit, onError: ((Throwable) -> Unit)?) {
         Handler(Looper.getMainLooper()).postDelayed({
             onSuccess(data)
+            onError?.invoke(IllegalStateException("I'm Error"))
         }, DATA_LOADINGFAKE_DELAY)
     }
 }
