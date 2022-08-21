@@ -3,11 +3,13 @@ package ru.gb
 import android.app.Application
 import android.content.Context
 import androidx.fragment.app.Fragment
-import ru.gb.popularlibrary.data.FakeUsersRepositoryImpl
+import ru.gb.popularlibrary.data.LocalUsersRepositoryImpl
+import ru.gb.popularlibrary.data.retrofit.RetrofitUsersRepositoryImpl
 import ru.gb.popularlibrary.domain.repositories.UsersRepository
 
 class App : Application() {
-    val usersRepository: UsersRepository by lazy { FakeUsersRepositoryImpl() }
+    //val usersRepository: UsersRepository by lazy { LocalUsersRepositoryImpl() }
+    val usersRepository: UsersRepository by lazy { RetrofitUsersRepositoryImpl() }
 }
 
 val Context.app: App get() = applicationContext as App

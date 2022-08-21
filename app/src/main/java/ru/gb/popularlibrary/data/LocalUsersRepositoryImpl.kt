@@ -8,7 +8,7 @@ import ru.gb.popularlibrary.domain.repositories.UsersRepository
 
 private const val DATA_LOADINGFAKE_DELAY = 1000L
 
-class FakeUsersRepositoryImpl : UsersRepository {
+class LocalUsersRepositoryImpl : UsersRepository {
 
     private val data: List<UserEntity> = listOf(
         UserEntity("https://avatars.githubusercontent.com/u/1?v=4", 1, "mojombo", "MDQ6VXNlcjE="),
