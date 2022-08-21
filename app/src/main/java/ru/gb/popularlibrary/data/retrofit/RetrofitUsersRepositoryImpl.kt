@@ -16,13 +16,6 @@ private const val DATA_LOADINGFAKE_DELAY = 1000L
 
 class RetrofitUsersRepositoryImpl : UsersRepository {
 
-//    private val data: List<UserEntity> = listOf(
-//        UserEntity("https://avatars.githubusercontent.com/u/1?v=4", 1, "mojombo", "MDQ6VXNlcjE="),
-//        UserEntity("https://avatars.githubusercontent.com/u/2?v=4", 2, "defunkt", "MDQ6VXNlcjI="),
-//        UserEntity("https://avatars.githubusercontent.com/u/3?v=4", 3, "pjhyett", "MDQ6VXNlcjM="),
-//        UserEntity("https://avatars.githubusercontent.com/u/4?v=4", 4, "wycats", "MDQ6VXNlcjQ="),
-//
-//        )
     // использование Gson
     private val retrofit: Retrofit? = Retrofit.Builder()
     .baseUrl("https://api.github.com/")
