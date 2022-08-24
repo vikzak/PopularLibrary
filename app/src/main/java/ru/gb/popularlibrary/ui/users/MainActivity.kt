@@ -32,10 +32,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         viewModel = extractViewModel()
-        viewModel.progressLiveData.observe(this) { showProgress(it) }
-        viewModel.errorLiveData.observe(this) { showError(it) }
-        viewModel.usersLiveData.observe(this) { showUsers(it) }
-        viewModel.userDetailLiveData.observe(this) { openDetailActivity() }
+        viewModel.progressLiveData.subscribe{ showProgress(it) }
+        viewModel.errorLiveData.subscribe{ showError(it) }
+        viewModel.usersLiveData.subscribe{ showUsers(it) }
+        viewModel.userDetailLiveData.subscribe { openDetailActivity() }
     }
 
     private fun openDetailActivity() {
