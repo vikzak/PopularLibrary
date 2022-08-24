@@ -1,15 +1,10 @@
 package ru.gb.popularlibrary.data.retrofit
 
-import android.os.Handler
-import android.os.Looper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.domain.repositories.UsersRepository
 
@@ -54,9 +49,9 @@ class RetrofitUsersRepositoryImpl : UsersRepository {
 //            }
 //
 //        })
-        apiGithub.getUsers().subscribe {
-            onSuccess.invoke(it)
-        }
+        apiGithub.getUsers().subscribeBy(
+            onSuccess = { onSuccess.invoke(it) },
+            onError = { onError?.invoke(it) })
     }
 }
 

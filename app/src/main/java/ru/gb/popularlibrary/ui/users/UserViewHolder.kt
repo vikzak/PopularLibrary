@@ -20,7 +20,7 @@ class UserViewHolder(
     private val binding = ItemUserBinding.bind(itemView).apply {
         root.setOnClickListener {
             inItemClickListener.invoke(userEntity)
-            Toast.makeText(itemView.context, userEntity.login, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(itemView.context, userEntity.login, Toast.LENGTH_SHORT).show()
 
         }
     }

@@ -3,6 +3,7 @@ package ru.gb.popularlibrary.data.retrofit
 
 
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,5 +18,5 @@ import ru.gb.popularlibrary.domain.entities.UserEntity
 
 interface GithubApi {
     @GET("users")
-    fun getUsers(): Observable<List<UserEntity>>
+    fun getUsers(): Single<List<UserEntity>>
 }
