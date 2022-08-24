@@ -2,7 +2,6 @@ package ru.gb.popularlibrary.ui.users
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.rxjava3.kotlin.subscribeBy
 import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.domain.repositories.UsersRepository
 import ru.gb.popularlibrary.utils.SingleEventsLiveData
@@ -32,17 +31,7 @@ class UsersViewModel(
 
     private fun loadData() {
         progressLiveData.mutable().postValue(true)
-//        usersRepository.getUsers(
-//            onSuccess = {
-//                progressLiveData.mutable().postValue(false)
-//                usersLiveData.mutable().postValue(it)
-//            },
-//            onError = {
-//                progressLiveData.mutable().postValue(false)
-//                errorLiveData.mutable().postValue(it)
-//            }
-//        )
-        usersRepository.getUsers().subscribeBy (
+        usersRepository.getUsers(
             onSuccess = {
                 progressLiveData.mutable().postValue(false)
                 usersLiveData.mutable().postValue(it)

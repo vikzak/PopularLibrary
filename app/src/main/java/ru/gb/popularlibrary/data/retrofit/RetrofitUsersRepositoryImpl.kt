@@ -1,6 +1,5 @@
 package ru.gb.popularlibrary.data.retrofit
 
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -54,8 +53,6 @@ class RetrofitUsersRepositoryImpl : UsersRepository {
             onSuccess = { onSuccess.invoke(it) },
             onError = { onError?.invoke(it) })
     }
-
-    override fun getUsers(): Single<List<UserEntity>> = apiGithub.getUsers()
 }
 
 

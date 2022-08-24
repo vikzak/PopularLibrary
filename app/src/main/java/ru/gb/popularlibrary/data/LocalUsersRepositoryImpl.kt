@@ -2,7 +2,6 @@ package ru.gb.popularlibrary.data
 
 import android.os.Looper
 import android.os.Handler
-import io.reactivex.rxjava3.core.Single
 import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.domain.repositories.UsersRepository
 
@@ -26,8 +25,6 @@ class LocalUsersRepositoryImpl : UsersRepository {
             onError?.invoke(IllegalStateException("I'm Error"))
         }, DATA_LOADING_LOCALREPOSITORY_DELAY)
     }
-
-    override fun getUsers(): Single<List<UserEntity>> = Single.just(data)
 }
 
 

@@ -6,10 +6,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.gb.popularlibrary.R
-import ru.gb.popularlibrary.databinding.ActivityUserDetailBinding
 import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.databinding.ItemUserBinding
-import ru.gb.popularlibrary.ui.profile.UserDetailActivity
 
 class UserViewHolder(
     parent: ViewGroup,
@@ -22,7 +20,6 @@ class UserViewHolder(
     private val binding = ItemUserBinding.bind(itemView).apply {
         root.setOnClickListener {
             inItemClickListener.invoke(userEntity)
-
             //Toast.makeText(itemView.context, userEntity.login, Toast.LENGTH_SHORT).show()
 
         }
