@@ -47,4 +47,20 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    // Moshi Converter
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    // RxJava
+    implementation "io.reactivex.rxjava3:rxjava:3.1.5"
+    //io.reactivex.rxjava3:rxjava:3.+ можно записать так чтобы gradle предложил последнюю версию
+
+    //RxJava bindings for Android
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+    //RxJava for Kotlin
+    implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
+
+    //RxJavaRetrofitAdapter
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
 }

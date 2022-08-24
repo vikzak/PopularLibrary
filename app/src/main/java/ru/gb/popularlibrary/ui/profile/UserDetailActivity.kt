@@ -12,16 +12,12 @@ class UserDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_user_detail)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.detailUserButtonClose.setOnClickListener {
-            finish()
+            this.finish()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        exitProcess(0)
     }
 }

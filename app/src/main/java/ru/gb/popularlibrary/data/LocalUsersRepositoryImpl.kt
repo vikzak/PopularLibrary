@@ -6,22 +6,24 @@ import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.domain.repositories.UsersRepository
 
 
-private const val DATA_LOADINGFAKE_DELAY = 1000L
+private const val DATA_LOADING_LOCALREPOSITORY_DELAY = 1000L
 
-class FakeUsersRepositoryImpl : UsersRepository {
+class LocalUsersRepositoryImpl : UsersRepository {
 
     private val data: List<UserEntity> = listOf(
         UserEntity("https://avatars.githubusercontent.com/u/1?v=4", 1, "mojombo", "MDQ6VXNlcjE="),
         UserEntity("https://avatars.githubusercontent.com/u/2?v=4", 2, "defunkt", "MDQ6VXNlcjI="),
         UserEntity("https://avatars.githubusercontent.com/u/3?v=4", 3, "pjhyett", "MDQ6VXNlcjM="),
         UserEntity("https://avatars.githubusercontent.com/u/4?v=4", 4, "wycats", "MDQ6VXNlcjQ="),
-
+        UserEntity("https://avatars.githubusercontent.com/u/4?v=4", 5, "wycats", "MDQ6VXNlcjQ="),
+        UserEntity("https://avatars.githubusercontent.com/u/4?v=4", 6, "wycats", "MDQ6VXNlcjQ=")
         )
 
     override fun getUsers(onSuccess: (List<UserEntity>) -> Unit, onError: ((Throwable) -> Unit)?) {
         Handler(Looper.getMainLooper()).postDelayed({
             onSuccess(data)
-        }, DATA_LOADINGFAKE_DELAY)
+            onError?.invoke(IllegalStateException("I'm Error"))
+        }, DATA_LOADING_LOCALREPOSITORY_DELAY)
     }
 }
 
