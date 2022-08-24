@@ -1,5 +1,7 @@
 package ru.gb.popularlibrary.domain.repositories
 
+import io.reactivex.rxjava3.core.Single
+import retrofit2.Callback
 import ru.gb.popularlibrary.domain.entities.UserEntity
 
 interface UsersRepository {
@@ -9,4 +11,5 @@ interface UsersRepository {
         onError: ((Throwable) -> Unit)? = null
     )
 
+    fun getUsers():Single<List<UserEntity>>
 }
