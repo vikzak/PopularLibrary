@@ -7,8 +7,8 @@ data class UserEntity(
     val avatarUrl: String,
 //    @SerializedName("events_url")
 //    val eventsUrl: String,
-//    @SerializedName("followers_url")
-//    val followersUrl: String,
+    @SerializedName("followers_url")
+    val followersUrl: String,
 //    @SerializedName("following_url")
 //    val followingUrl: String,
 //    @SerializedName("gists_url")

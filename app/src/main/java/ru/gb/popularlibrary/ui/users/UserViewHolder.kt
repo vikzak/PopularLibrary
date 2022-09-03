@@ -36,5 +36,6 @@ class UserViewHolder(
         binding.awatarImageView.load(userEntity.avatarUrl)
         binding.loginTextView.text = "login: " + userEntity.login
         binding.userIdTextView.text = "user ID: " + userEntity.id.toString()
+        binding.userFollowers.text = "followers: " + userEntity.followersUrl
     }
 }

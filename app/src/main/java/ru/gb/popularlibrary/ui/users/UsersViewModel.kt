@@ -39,7 +39,7 @@ class UsersViewModel(
 
         usersRepository.getUsers()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy (
+            .subscribeBy(
             onSuccess = {
                 progressLiveData.mutable().onNext(false)
                 usersLiveData.mutable().onNext(it)

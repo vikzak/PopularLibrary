@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import ru.gb.app
 import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     //private val usersRepository: UsersRepository by lazy { app.usersRepository }
     private lateinit var viewModel: UsersContract.ViewModel
+    private var viewModelDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,16 +29,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initViews()
-
         initViewModel()
     }
 
     private fun initViewModel() {
         viewModel = extractViewModel()
-        viewModel.progressLiveData.subscribe{ showProgress(it) }
-        viewModel.errorLiveData.subscribe{ showError(it) }
-        viewModel.usersLiveData.subscribe{ showUsers(it) }
-        viewModel.userDetailLiveData.subscribe { openDetailActivity() }
+        viewModelDisposable.addAll(
+            viewModel.progressLiveData.subscribe { showProgress(it) },
+            viewModel.errorLiveData.subscribe { showError(it) },
+            viewModel.usersLiveData.subscribe { showUsers(it) },
+            viewModel.userDetailLiveData.subscribe { openDetailActivity() }
+        )
     }
 
     private fun openDetailActivity() {
@@ -82,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        viewModelDisposable.dispose()
         super.onDestroy()
     }
 }
