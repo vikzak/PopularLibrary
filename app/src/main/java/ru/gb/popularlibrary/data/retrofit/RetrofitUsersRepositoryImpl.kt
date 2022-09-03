@@ -13,27 +13,14 @@ import ru.gb.popularlibrary.domain.repositories.UsersRepository
 
 private const val DATA_LOADINGFAKE_DELAY = 1000L
 
-class RetrofitUsersRepositoryImpl : UsersRepository {
-// использование Moshi
-//    private val retrofit: Retrofit? = Retrofit.Builder()
-//        .baseUrl("https://api.github.com/")
-//        .addConverterFactory(MoshiConverterFactory.create())
-//        .build()
+class RetrofitUsersRepositoryImpl(
+    private val apiGithub: GithubApi
+) : UsersRepository {
 
-    // использование Gson
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.github.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .build()
-
-
-    private val apiGithub: GithubApi = retrofit.create(GithubApi::class.java)
 
     override fun getUsers(onSuccess: (List<UserEntity>) -> Unit, onError: ((Throwable) -> Unit)?) {
 
         apiGithub.getUsers()
-            //.observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = {
                     onSuccess.invoke(it)
