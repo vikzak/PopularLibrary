@@ -16,11 +16,6 @@ class UsersViewModel(
     private val usersRepository: UsersRepository
 ) : UsersContract.ViewModel {
 
-// было
-//    private val _usersLiveData = MutableLiveData<List<UserEntity>>()
-//    override val usersLiveData: LiveData<List<UserEntity>>
-//        get() = _usersLiveData
-// стало:
     override val usersLiveData: Observable<List<UserEntity>> = BehaviorSubject.create()
     override val errorLiveData: Observable<Throwable> = BehaviorSubject.create()
     override val progressLiveData: Observable<Boolean> = BehaviorSubject.create()

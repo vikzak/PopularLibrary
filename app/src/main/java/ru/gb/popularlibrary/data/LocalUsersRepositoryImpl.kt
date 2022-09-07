@@ -9,7 +9,9 @@ import ru.gb.popularlibrary.domain.repositories.UsersRepository
 
 private const val DATA_LOADING_LOCALREPOSITORY_DELAY = 1000L
 
-class LocalUsersRepositoryImpl : UsersRepository {
+class LocalUsersRepositoryImpl(
+    private val uiHandler: Handler
+) : UsersRepository {
 
     private val data: List<UserEntity> = listOf(
         UserEntity("https://avatars.githubusercontent.com/u/1?v=4", "https://api.github.com/users/mojombo/followers", 1,"mojombo", "MDQ6VXNlcjE="),
@@ -21,7 +23,7 @@ class LocalUsersRepositoryImpl : UsersRepository {
         )
 
     override fun getUsers(onSuccess: (List<UserEntity>) -> Unit, onError: ((Throwable) -> Unit)?) {
-        Handler(Looper.getMainLooper()).postDelayed({
+        uiHandler.postDelayed({
             onSuccess(data)
             onError?.invoke(IllegalStateException("I'm Error"))
         }, DATA_LOADING_LOCALREPOSITORY_DELAY)

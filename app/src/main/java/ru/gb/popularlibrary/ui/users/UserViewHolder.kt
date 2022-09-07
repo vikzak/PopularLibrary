@@ -26,7 +26,6 @@ class UserViewHolder(
             inItemClickListener.invoke(userEntity)
 
             Toast.makeText(itemView.context, userEntity.login, Toast.LENGTH_SHORT).show()
-
             //startActivity(Intent(this, UserDetailActivity::class.java))
         }
     }

@@ -11,6 +11,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import ru.gb.app
 import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
+import ru.gb.popularlibrary.domain.repositories.UsersRepository
 import ru.gb.popularlibrary.ui.profile.UserDetailActivity
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.onUserClick(it)
     }
 
+    private val usersRepository : UsersRepository by lazy { app.usersRepository }
     //private val usersRepository: UsersRepository by lazy { app.usersRepository }
     private lateinit var viewModel: UsersContract.ViewModel
     private var viewModelDisposable = CompositeDisposable()
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun extractViewModel(): UsersContract.ViewModel {
         return lastCustomNonConfigurationInstance as? UsersContract.ViewModel
-            ?: UsersViewModel(app.usersRepository)
+            ?: UsersViewModel(usersRepository)
     }
 
     private fun initViews() {

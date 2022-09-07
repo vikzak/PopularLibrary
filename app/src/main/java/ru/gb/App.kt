@@ -2,6 +2,8 @@ package ru.gb
 
 import android.app.Application
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -25,7 +27,12 @@ class App : Application() {
             .build()
     }
     private val apiGithub: GithubApi by lazy { retrofit.create(GithubApi::class.java) }
+
+    private val uiHandler:Handler by lazy { Handler(Looper.getMainLooper()) }
+
     val usersRepository: UsersRepository by lazy { RetrofitUsersRepositoryImpl(apiGithub) }
+    //val usersRepository: UsersRepository by lazy { LocalUsersRepositoryImpl(uiHandler) }
+
 }
 
 
