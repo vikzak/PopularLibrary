@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "ru.gb.popularlibrary"
@@ -35,8 +35,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
@@ -52,15 +52,15 @@ dependencies {
 
     // RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.1.5"
-    //io.reactivex.rxjava3:rxjava:3.+ можно записать так чтобы gradle предложил последнюю версию
 
     //RxJava bindings for Android
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-
     //RxJava for Kotlin
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
-
     //RxJavaRetrofitAdapter
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    //Koin-Core
+    implementation 'io.insert-koin:koin-android:3.2.0'
 
 }

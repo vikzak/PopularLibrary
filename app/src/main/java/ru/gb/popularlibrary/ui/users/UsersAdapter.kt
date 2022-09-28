@@ -14,7 +14,7 @@ class UsersAdapter(
         setHasStableIds(true)
     }
 
-    override fun getItemId(position: Int) = getItem(position).id.toLong()
+    override fun getItemId(position: Int) = getItem(position).id
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = UserViewHolder(parent, onItemClickListener)
 

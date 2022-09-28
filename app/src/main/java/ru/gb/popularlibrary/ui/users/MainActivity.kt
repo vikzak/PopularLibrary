@@ -1,16 +1,16 @@
 package ru.gb.popularlibrary.ui.users
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
-import ru.gb.app
-import ru.gb.popularlibrary.domain.entities.UserEntity
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
+import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.domain.repositories.UsersRepository
 import ru.gb.popularlibrary.ui.profile.UserDetailActivity
 
@@ -20,10 +20,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.onUserClick(it)
     }
 
-    private val usersRepository : UsersRepository by lazy { app.usersRepository }
-    //private val usersRepository: UsersRepository by lazy { app.usersRepository }
-    private lateinit var viewModel: UsersContract.ViewModel
-    private var viewModelDisposable = CompositeDisposable()
+    private val viewModel: UsersViewModel by viewModel()
+    private val viewModelDisposable = CompositeDisposable()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = extractViewModel()
         viewModelDisposable.addAll(
             viewModel.progressLiveData.subscribe { showProgress(it) },
             viewModel.errorLiveData.subscribe { showError(it) },
@@ -48,10 +47,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, UserDetailActivity::class.java))
     }
 
-    private fun extractViewModel(): UsersContract.ViewModel {
-        return lastCustomNonConfigurationInstance as? UsersContract.ViewModel
-            ?: UsersViewModel(usersRepository)
-    }
 
     private fun initViews() {
         binding.reloadButton.setOnClickListener {
@@ -59,13 +54,11 @@ class MainActivity : AppCompatActivity() {
         }
         initRecyclerView()
         showProgress(false)
-        //clickToUserDetail()
     }
 
     private fun initRecyclerView() {
         binding.userReloadRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.userReloadRecyclerview.adapter = adapter
-        //loadData()
     }
 
     private fun showUsers(users: List<UserEntity>) {
@@ -80,11 +73,6 @@ class MainActivity : AppCompatActivity() {
         binding.progressBar.isVisible = inProgress
         binding.userReloadRecyclerview.isVisible = !inProgress
 
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onRetainCustomNonConfigurationInstance(): UsersContract.ViewModel {
-        return viewModel
     }
 
     override fun onDestroy() {

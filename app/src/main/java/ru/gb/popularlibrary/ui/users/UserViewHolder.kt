@@ -1,17 +1,13 @@
 package ru.gb.popularlibrary.ui.users
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.gb.popularlibrary.R
-import ru.gb.popularlibrary.databinding.ActivityUserDetailBinding
-import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.databinding.ItemUserBinding
-import ru.gb.popularlibrary.ui.profile.UserDetailActivity
+import ru.gb.popularlibrary.domain.entities.UserEntity
 
 class UserViewHolder(
     parent: ViewGroup,

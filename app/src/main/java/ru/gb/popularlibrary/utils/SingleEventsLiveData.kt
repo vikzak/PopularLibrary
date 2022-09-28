@@ -8,8 +8,7 @@ import androidx.lifecycle.Observer
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
-class SingleEventsLiveData<T>:MutableLiveData<T>()   {
-
+class SingleEventLiveData<T> : MutableLiveData<T>() {
     private val pending = AtomicBoolean(false)
 
     @MainThread
@@ -34,5 +33,4 @@ class SingleEventsLiveData<T>:MutableLiveData<T>()   {
     companion object {
         private val TAG = "SingleLiveEvent"
     }
-
 }

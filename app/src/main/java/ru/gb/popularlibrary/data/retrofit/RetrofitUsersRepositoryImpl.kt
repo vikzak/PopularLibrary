@@ -1,12 +1,8 @@
 package ru.gb.popularlibrary.data.retrofit
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-
-import retrofit2.converter.gson.GsonConverterFactory
 import ru.gb.popularlibrary.domain.entities.UserEntity
 import ru.gb.popularlibrary.domain.repositories.UsersRepository
 
@@ -20,10 +16,9 @@ class RetrofitUsersRepositoryImpl(
 
     override fun getUsers(onSuccess: (List<UserEntity>) -> Unit, onError: ((Throwable) -> Unit)?) {
 
-        apiGithub.getUsers()
-            .subscribeBy(
+        apiGithub.getUsers().subscribeBy(
                 onSuccess = {
-                    onSuccess.invoke(it)
+                    users -> onSuccess.invoke(users.map { it.toUserEntity() })
                 },
                 onError = {
                     onError?.invoke(it)
@@ -31,7 +26,14 @@ class RetrofitUsersRepositoryImpl(
             )
     }
 
+
+
     override fun getUsers(): Single<List<UserEntity>> = apiGithub.getUsers()
+        .map { users ->
+            users.map {
+                it.toUserEntity()
+            }
+        }
 
 
 }
