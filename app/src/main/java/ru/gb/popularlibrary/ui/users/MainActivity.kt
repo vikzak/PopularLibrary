@@ -7,11 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.gb.app
 import ru.gb.popularlibrary.databinding.ActivityMainBinding
 import ru.gb.popularlibrary.domain.entities.UserEntity
-import ru.gb.popularlibrary.domain.repositories.UsersRepository
 import ru.gb.popularlibrary.ui.profile.UserDetailActivity
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.onUserClick(it)
     }
 
-    private val viewModel: UsersViewModel by viewModel()
+    private val viewModel: UsersViewModel by lazy { UsersViewModel(app.applicationComponent.getUsersRepository()) }
     private val viewModelDisposable = CompositeDisposable()
 
 
